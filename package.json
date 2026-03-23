@@ -15,7 +15,15 @@
     "@astrojs/mdx": "^5.0.2",
     "@astrojs/rss": "^4.0.17",
     "@astrojs/sitemap": "^3.7.1",
+    "@astrojs/svelte": "^8.0.3",
+    "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.0.6",
-    "sharp": "^0.34.3"
+    "sharp": "^0.34.3",
+    "svelte": "^5.54.1",
+    "tailwindcss": "^4.2.2",
+    "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "fast-xml-parser": "4.4.1"
   }
 }
