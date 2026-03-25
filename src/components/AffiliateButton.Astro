@@ -1,0 +1,44 @@
+---
+// src/components/AffiliateButton.astro
+interface Props {
+  href: string;
+  platform?: 'shopee' | 'lazada' | 'generic';
+}
+
+const { href, platform = 'shopee' } = Astro.props;
+
+// Define colors based on platform
+const platformStyles = {
+  shopee: "bg-[#EE4D2D] hover:bg-[#ff5733] text-white",
+  lazada: "bg-[#10147E] hover:bg-[#1a1f9e] text-white",
+  generic: "bg-blue-600 hover:bg-blue-700 text-white"
+};
+
+const buttonClass = platformStyles[platform] || platformStyles.generic;
+---
+
+<a 
+  href={href} 
+  target="_blank" 
+  rel="noopener noreferrer" 
+  class={`inline-flex items-center justify-center px-6 py-3 mt-4 font-bold rounded-xl transition-all duration-200 transform hover:scale-105 active:scale-95 shadow-md hover:shadow-lg no-underline ${buttonClass}`}
+>
+  {platform === 'shopee' && (
+    <span class="mr-2">🛒</span>
+  )}
+  Check Price on {platform.charAt(0).toUpperCase() + platform.slice(1)}
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    class="w-4 h-4 ml-2" 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    stroke-width="3" 
+    stroke-linecap="round" 
+    stroke-linejoin="round"
+  >
+    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+    <polyline points="15 3 21 3 21 9"></polyline>
+    <line x1="10" y1="14" x2="21" y2="3"></line>
+  </svg>
+</a>
