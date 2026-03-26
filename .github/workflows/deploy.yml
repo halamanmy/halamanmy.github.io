@@ -20,7 +20,7 @@ jobs:
         uses: withastro/action@v3
         with:
           # This automatically runs npm install && npm run build
-          path: . 
+          node-version: 22
 
   deploy:
     needs: build
