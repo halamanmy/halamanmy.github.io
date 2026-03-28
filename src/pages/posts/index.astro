@@ -2,13 +2,12 @@
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import FormattedDate from "../../components/FormattedDate.astro";
 
-const title = "Blog";
+const title = "Posts";
 const description = "Latest articles.";
-const permalink = `${Astro.site.href}blog`;
+const permalink = `${Astro.site.href}posts`;
 
-let allPosts = await getCollection("blog");
+let allPosts = await getCollection("posts");
 allPosts = allPosts.sort(
   (a, b) =>
     new Date(b.data.publishDate).valueOf() -
@@ -22,13 +21,13 @@ const [featuredPost, ...otherPosts] = allPosts;
   title={title}
   description={description}
   permalink={permalink}
-  current="blog"
+  current="posts"
 >
   <div class="container">
-    <h1>Blog</h1>
+    <h1>Posts</h1>
     {
       allPosts.map((post, index) => {
-        const href = `/blog/${featuredPost.id}/`;
+        const href = `/posts/${featuredPost.id}/`;
         return (
           <div>
             {index !== 0 && <hr />}
