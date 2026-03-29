@@ -4,7 +4,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const title = 'Ruangan.My';
 //Change this
 const description = 'The perfect starter for your perfect blog.'; 
-const permalink = Astro.site.href;
+const site = Astro.site?.href;
+const permalink = `${site}`;
 ---
 
 <BaseLayout title={title} description={description} permalink={permalink}>

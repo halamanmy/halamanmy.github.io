@@ -1,0 +1,401 @@
+---
+interface Props {
+  rank: number;
+  name: string;
+  tagline: string;
+  chipset: string;
+  ram: string;
+  storage: string;
+  camera: string;
+  battery: string;
+  price: string;
+  highlight?: string;
+  affiliateUrl: string;
+  tags: string[]; // "gaming" | "daily" | "camera" | "budget"
+  featured?: boolean;
+}
+
+const {
+  rank,
+  name,
+  tagline,
+  chipset,
+  ram,
+  storage,
+  camera,
+  battery,
+  price,
+  highlight,
+  affiliateUrl,
+  tags,
+  featured = false,
+} = Astro.props;
+
+const tagLabels: Record<string, string> = {
+  gaming: "gaming",
+  daily: "daily use",
+  camera: "camera / video",
+  budget: "budget pick",
+};
+---
+
+<article
+  class:list={["phone-card", { "phone-card--featured": featured }]}
+  data-tags={tags.join(" ")}
+>
+  <div class="phone-card__rank">
+    {String(rank).padStart(2, "0")}
+  </div>
+
+  <div class="phone-card__body">
+    <div class="phone-card__header">
+      <div>
+        <h3 class="phone-card__name">{name}</h3>
+        <p class="phone-card__tagline">{tagline}</p>
+      </div>
+      {featured && <span class="phone-card__badge">Editor's pick</span>}
+    </div>
+
+    <dl class="phone-card__specs">
+      <div class="phone-card__spec">
+        <dt>Chip</dt>
+        <dd>{chipset}</dd>
+      </div>
+      <div class="phone-card__spec">
+        <dt>RAM</dt>
+        <dd>{ram}</dd>
+      </div>
+      <div class="phone-card__spec">
+        <dt>Storage</dt>
+        <dd>{storage}</dd>
+      </div>
+      <div class="phone-card__spec">
+        <dt>Camera</dt>
+        <dd>{camera}</dd>
+      </div>
+      <div class="phone-card__spec">
+        <dt>Battery</dt>
+        <dd>{battery}</dd>
+      </div>
+      {
+        highlight && (
+          <div class="phone-card__spec phone-card__spec--highlight">
+            <dt>Note</dt>
+            <dd>{highlight}</dd>
+          </div>
+        )
+      }
+    </dl>
+
+    <div class="phone-card__tags">
+      {
+        tags.map((t) => (
+          <span class={`phone-card__tag phone-card__tag--${t}`}>
+            {tagLabels[t] ?? t}
+          </span>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="phone-card__cta">
+    <p class="phone-card__price">{price}</p>
+    <a
+      href={affiliateUrl}
+      target="_blank"
+      rel="noopener noreferrer nofollow"
+      class="phone-card__buy"
+      aria-label={`Buy ${name} on Shopee`}
+    >
+      View on Shopee
+      <svg
+        width="12"
+        height="12"
+        viewBox="0 0 12 12"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M2 10L10 2M10 2H4M10 2V8"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </a>
+  </div>
+</article>
+
+<style>
+  .phone-card {
+    display: grid;
+    grid-template-columns: 36px 1fr auto;
+    gap: 1rem;
+    align-items: start;
+    padding: 1.125rem 1.25rem;
+    border: 0.5px solid var(--color-border, rgba(0, 0, 0, 0.1));
+    border-radius: 14px;
+    background: var(--color-card, #fff);
+    transition:
+      border-color 0.2s ease,
+      transform 0.15s ease;
+  }
+
+  .phone-card:hover {
+    border-color: var(--color-border-hover, rgba(0, 0, 0, 0.2));
+    transform: translateY(-1px);
+  }
+
+  .phone-card--featured {
+    border-color: rgba(15, 110, 86, 0.3);
+    background: var(--color-featured-bg, #f6fdf9);
+  }
+
+  .phone-card--featured:hover {
+    border-color: rgba(15, 110, 86, 0.55);
+  }
+
+  /* ── Rank ─── */
+  .phone-card__rank {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-rank, rgba(0, 0, 0, 0.2));
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+    padding-top: 3px;
+  }
+
+  /* ── Body ─── */
+  .phone-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .phone-card__name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary, #111);
+    margin: 0 0 2px;
+    line-height: 1.2;
+  }
+
+  .phone-card__tagline {
+    font-size: 13px;
+    color: var(--text-secondary, #666);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .phone-card__badge {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: #085041;
+    background: #e1f5ee;
+    padding: 3px 8px;
+    border-radius: 99px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ── Specs ─── */
+  .phone-card__specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    margin: 0 0 0.75rem;
+  }
+
+  .phone-card__spec {
+    display: flex;
+    gap: 5px;
+    align-items: baseline;
+  }
+
+  .phone-card__spec dt {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-tertiary, #aaa);
+    font-weight: 500;
+  }
+
+  .phone-card__spec dd {
+    font-size: 12px;
+    color: var(--text-secondary, #555);
+    margin: 0;
+  }
+
+  .phone-card__spec--highlight dd {
+    color: var(--text-primary, #222);
+    font-style: italic;
+  }
+
+  /* ── Tags ─── */
+  .phone-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .phone-card__tag {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 9px;
+    border-radius: 99px;
+  }
+
+  .phone-card__tag--gaming {
+    background: #faeeda;
+    color: #633806;
+  }
+  .phone-card__tag--daily {
+    background: #e6f1fb;
+    color: #0c447c;
+  }
+  .phone-card__tag--camera {
+    background: #eeedfe;
+    color: #3c3489;
+  }
+  .phone-card__tag--budget {
+    background: #f1efe8;
+    color: #444441;
+  }
+
+  /* ── CTA ─── */
+  .phone-card__cta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    min-width: 110px;
+  }
+
+  .phone-card__price {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary, #111);
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .phone-card__buy {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 13px;
+    border-radius: 8px;
+    border: 0.5px solid rgba(0, 0, 0, 0.15);
+    color: var(--text-primary, #111);
+    background: transparent;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      background 0.15s,
+      border-color 0.15s;
+  }
+
+  .phone-card__buy:hover {
+    background: var(--color-background-secondary, #f5f5f3);
+    border-color: rgba(0, 0, 0, 0.25);
+  }
+
+  /* ── Responsive ─── */
+  @media (max-width: 560px) {
+    .phone-card {
+      grid-template-columns: 28px 1fr;
+      grid-template-rows: auto auto;
+    }
+
+    .phone-card__cta {
+      grid-column: 2;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      min-width: unset;
+    }
+  }
+
+  /* ── Dark mode ─── */
+  @media (prefers-color-scheme: dark) {
+    .phone-card {
+      background: #1c1c1a;
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .phone-card:hover {
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .phone-card--featured {
+      background: #0f1a16;
+      border-color: rgba(29, 158, 117, 0.25);
+    }
+
+    .phone-card--featured:hover {
+      border-color: rgba(29, 158, 117, 0.5);
+    }
+
+    .phone-card__rank {
+      color: rgba(255, 255, 255, 0.18);
+    }
+
+    .phone-card__name {
+      color: #f0f0ee;
+    }
+
+    .phone-card__tagline {
+      color: #999;
+    }
+
+    .phone-card__spec dd {
+      color: #888;
+    }
+
+    .phone-card__spec--highlight dd {
+      color: #ccc;
+    }
+
+    .phone-card__price {
+      color: #f0f0ee;
+    }
+
+    .phone-card__buy {
+      color: #ddd;
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .phone-card__buy:hover {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .phone-card__badge {
+      background: #085041;
+      color: #9fe1cb;
+    }
+
+    .phone-card__tag--gaming {
+      background: #633806;
+      color: #fac775;
+    }
+    .phone-card__tag--daily {
+      background: #0c447c;
+      color: #b5d4f4;
+    }
+    .phone-card__tag--camera {
+      background: #3c3489;
+      color: #cecbf6;
+    }
+    .phone-card__tag--budget {
+      background: #2c2c2a;
+      color: #b4b2a9;
+    }
+  }
+</style>

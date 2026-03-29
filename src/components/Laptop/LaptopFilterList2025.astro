@@ -1,0 +1,224 @@
+---
+import LaptopCard from "./LaptopCard.astro";
+---
+
+<div class="filter-bar" id="filter-bar">
+  <button class="fil active" data-filter="all">All picks</button>
+  <button class="fil" data-filter="web">Web dev</button>
+  <button class="fil" data-filter="backend">Backend / Docker</button>
+  <button class="fil" data-filter="mobile">Mobile dev</button>
+  <button class="fil" data-filter="nomad">On the go</button>
+  <button class="fil" data-filter="budget">Strict budget</button>
+</div>
+
+<div class="laptop-list" id="laptop-list">
+  <LaptopCard
+    rank={1}
+    name="Lenovo ThinkPad E14"
+    tagline='The "Reliable Workhorse" — legendary keyboard, military-grade durability'
+    processor="AMD Ryzen 7"
+    ram="16GB"
+    price="~RM 3,200"
+    highlight="Spill-resistant keyboard. MIL-SPEC durability."
+    affiliateUrl="https://s.shopee.com.my/50UdPJ2Esn?share_channel_code=1"
+    tags={["web", "backend", "nomad"]}
+    featured={true}
+  />
+
+  <LaptopCard
+    rank={2}
+    name="ASUS Vivobook 16 (A1605)"
+    tagline='The "Screen Real Estate" King — side-by-side windows with ease'
+    processor="Intel Core i5-13420H (13th Gen)"
+    ram="16GB DDR4 (upgradeable)"
+    price="~RM 2,699"
+    affiliateUrl="https://s.shopee.com.my/6L00zvIyJR?share_channel_code=1"
+    tags={["web", "budget"]}
+  />
+
+  <LaptopCard
+    rank={3}
+    name="Acer Swift Go 14 (AI Edition)"
+    tagline='The "Coffee Shop" Favorite — stunning OLED, ultra-light'
+    processor="Intel Core Ultra 5 225H"
+    ram="16GB LPDDR5X"
+    price="~RM 3,799"
+    highlight="OLED display reduces eye strain during late-night sessions."
+    affiliateUrl="https://s.shopee.com.my/5VQu0Y4UdU?share_channel_code=1"
+    tags={["nomad", "mobile"]}
+  />
+
+  <LaptopCard
+    rank={4}
+    name="HP Pavilion Plus 14"
+    tagline='The "All-Rounder" — premium feel, great webcam for stand-ups'
+    processor="AMD Ryzen 7 8845H"
+    ram="16GB"
+    price="~RM 3,899"
+    affiliateUrl="https://s.shopee.com.my/4qBDDPIYR7?share_channel_code=1"
+    tags={["web", "mobile"]}
+  />
+
+  <LaptopCard
+    rank={5}
+    name="MacBook Air M2"
+    tagline='The "Battery Life" Champion — all-day power, no charger anxiety'
+    processor="Apple M2 Chip"
+    ram="8GB (16GB recommended for Docker)"
+    price="~RM 3,999"
+    highlight="Only pick 8GB on a strict budget — hunt for 16GB promos if you use Docker."
+    affiliateUrl="https://s.shopee.com.my/60NAbcUInA?share_channel_code=1"
+    tags={["ios", "nomad"]}
+  />
+
+  <LaptopCard
+    rank={6}
+    name="Dell Inspiron 14"
+    tagline='The "Zero Downtime" Choice — on-site warranty, freelancer-safe'
+    processor="Intel Core i5-1335U"
+    ram="16GB"
+    price="~RM 3,199"
+    highlight="On-site warranty — a technician comes to you if hardware fails."
+    affiliateUrl="https://s.shopee.com.my/LinrKUUie?share_channel_code=1"
+    tags={["web", "nomad"]}
+  />
+
+  <LaptopCard
+    rank={7}
+    name="Honor MagicBook X16"
+    tagline='The "MacBook Clone" on a budget — thin 16" chassis, Windows/Linux ready'
+    processor="Intel Core i5-12450H"
+    ram="16GB"
+    price="~RM 2,999"
+    affiliateUrl="https://s.shopee.com.my/8V4VaOFrOK?share_channel_code=1"
+    tags={["web", "budget"]}
+  />
+
+  <LaptopCard
+    rank={8}
+    name="Lenovo LOQ 15 (Gen 9)"
+    tagline='The "Heavy Lifter" — built for sustained loads, no throttling'
+    processor="Intel Core i5-13450HX"
+    ram="16GB"
+    price="~RM 3,499"
+    highlight="Gaming-grade cooling means it won't slow down during long compiles."
+    affiliateUrl="https://s.shopee.com.my/gLeG2iwzM?share_channel_code=1"
+    tags={["backend"]}
+  />
+
+  <LaptopCard
+    rank={9}
+    name="MSI Modern 15"
+    tagline='The "Minimalist" Choice — stealthy, no-frills, no RGB'
+    processor="AMD Ryzen 5 7530U"
+    ram="16GB"
+    price="~RM 2,499"
+    affiliateUrl="https://s.shopee.com.my/AUpZy9tW9h?share_channel_code=1"
+    tags={["web", "budget"]}
+  />
+
+  <LaptopCard
+    rank={10}
+    name="Acer Aspire Go 14"
+    tagline="The Student's First Rig — sleek, light, incredible battery"
+    processor="AMD Ryzen 5 7000 Series (or Intel Core i3-N)"
+    ram="16GB (check variant — some ship with 8GB)"
+    price="~RM 2,299 – RM 2,499"
+    highlight="Best entry point on this list. Perfect for CS students."
+    affiliateUrl="https://s.shopee.com.my/7fVObbj8TO?share_channel_code=1"
+    tags={["budget", "web"]}
+  />
+</div>
+
+<script>
+  const filterBar = document.getElementById("filter-bar");
+  const list = document.getElementById("laptop-list");
+
+  filterBar?.addEventListener("click", (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>(".fil");
+    if (!btn) return;
+
+    filterBar
+      .querySelectorAll(".fil")
+      .forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const filter = btn.dataset.filter ?? "all";
+
+    list?.querySelectorAll<HTMLElement>(".laptop-card").forEach((card) => {
+      const tags = card.dataset.tags ?? "";
+      const visible = filter === "all" || tags.includes(filter);
+      card.classList.toggle("is-hidden", !visible);
+    });
+  });
+</script>
+
+<style>
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0.75rem 0 1.25rem;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.25rem;
+  }
+
+  .fil {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 14px;
+    border-radius: 99px;
+    border: 0.5px solid rgba(0, 0, 0, 0.15);
+    background: transparent;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-family: inherit;
+  }
+
+  .fil:hover {
+    background: rgba(0, 0, 0, 0.04);
+    color: #111;
+    border-color: rgba(0, 0, 0, 0.25);
+  }
+
+  .fil.active {
+    background: #111;
+    color: #fff;
+    border-color: transparent;
+  }
+
+  .laptop-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Target the card rendered by LaptopCard.astro */
+  .laptop-list :global(.laptop-card.is-hidden) {
+    display: none;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .filter-bar {
+      border-bottom-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .fil {
+      border-color: rgba(255, 255, 255, 0.15);
+      color: #999;
+    }
+
+    .fil:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: #eee;
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .fil.active {
+      background: #f0f0ee;
+      color: #111;
+      border-color: transparent;
+    }
+  }
+</style>

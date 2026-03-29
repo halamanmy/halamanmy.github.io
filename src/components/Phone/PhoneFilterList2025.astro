@@ -1,0 +1,255 @@
+---
+import PhoneCard from "./PhoneCard.astro";
+---
+
+<div class="filter-bar" id="phone-filter-bar">
+  <button class="fil active" data-filter="all">All picks</button>
+  <button class="fil" data-filter="gaming">Gaming</button>
+  <button class="fil" data-filter="camera">Camera / Video</button>
+  <button class="fil" data-filter="daily">Daily use</button>
+  <button class="fil" data-filter="budget">Strict budget</button>
+</div>
+
+<div class="phone-list" id="phone-list">
+  <PhoneCard
+    rank={1}
+    name="Samsung Galaxy A56 5G"
+    tagline='The "Mid-Range Powerhouse" — flagship-level performance under RM 1,600'
+    chipset="Exynos 1580 (4nm)"
+    ram="8GB / 12GB"
+    storage="256GB / 512GB"
+    camera="50MP OIS (Main) + 12MP Ultra-wide + 5MP Macro"
+    battery="5000mAh · 45W Fast Charging"
+    price="~RM 1,475"
+    highlight="Major performance leap with Exynos 1580 and upgraded 45W charging support."
+    affiliateUrl="https://s.shopee.com.my/4qBHyjZO71?share_channel_code=1"
+    tags={["performance", "camera", "daily"]}
+    featured={true}
+  />
+
+  <PhoneCard
+    rank={2}
+    name="Xiaomi Redmi Note 13 Pro+"
+    tagline='The "Camera Beast" — 200MP sensor that embarrasses phones twice the price'
+    chipset="MediaTek Dimensity 7200 Ultra"
+    ram="8GB / 12GB"
+    storage="256GB"
+    camera="200MP OIS + 8MP Ultra-wide + 2MP Macro"
+    battery="5000mAh · 120W HyperCharge"
+    price="~RM 1,299"
+    highlight="120W charging fills from 0 to 100% in about 19 minutes."
+    affiliateUrl="https://s.shopee.com.my/7potYerXD1?share_channel_code=1"
+    tags={["camera", "daily"]}
+  />
+
+  <PhoneCard
+    rank={3}
+    name="POCO X6 Pro"
+    tagline='The "Budget Gaming King" — Dimensity 8300 Ultra at an absurd price'
+    chipset="MediaTek Dimensity 8300 Ultra"
+    ram="8GB / 12GB"
+    storage="256GB"
+    camera="64MP + 8MP Ultra-wide + 2MP Macro"
+    battery="5000mAh · 67W Turbo charging"
+    price="~RM 1,199"
+    highlight="Handles Genshin Impact and PUBG on high settings without throttling."
+    affiliateUrl="https://s.shopee.com.my/3B3409pc3w?share_channel_code=1"
+    tags={["gaming", "daily"]}
+  />
+
+  <PhoneCard
+    rank={4}
+    name="realme GT 7T"
+    tagline='The "Ultra-Performance" King — Snapdragon 7+ Gen 4 and 6000-nit display'
+    chipset="Snapdragon 7+ Gen 4 (4nm)"
+    ram="12GB / 16GB"
+    storage="256GB / 512GB"
+    camera="50MP Sony LYT-600 OIS + 8MP Ultra-wide"
+    battery="5800mAh · 120W SuperVOOC"
+    price="~RM 1,550"
+    highlight="Industry-leading 6000-nit peak brightness and massive 5800mAh silicon-carbon battery."
+    affiliateUrl="https://s.shopee.com.my/9fGXkyROgO?share_channel_code=1"
+    tags={["gaming", "performance", "daily"]}
+    featured={true}
+  />
+
+  <PhoneCard
+    rank={5}
+    name="Samsung Galaxy A36 5G"
+    tagline='The "Reliable Everyday Driver" — 6 years of updates and a premium build'
+    chipset="Exynos 1480 (4nm)"
+    ram="8GB"
+    storage="128GB / 256GB"
+    camera="50MP OIS + 8MP Ultra-wide + 2MP Macro"
+    battery="5000mAh · 25W Fast Charging"
+    price="~RM 1,199"
+    highlight="Unbeatable 6 years of OS and security updates, ensuring the phone stays fresh until 2031."
+    affiliateUrl="https://s.shopee.com.my/808Jm1vRzC?share_channel_code=1"
+    tags={["daily"]}
+  />
+
+  <PhoneCard
+    rank={6}
+    name="Xiaomi 15T"
+    tagline='The "Leica Mastery" choice — flagship-grade cinematic photography'
+    chipset="MediaTek Dimensity 8400 (4nm)"
+    ram="12GB"
+    storage="256GB / 512GB"
+    camera="50MP Leica Main (Light Fusion 800) + 50MP Telephoto + 13MP Ultra-wide"
+    battery="5500mAh · 90W HyperCharge"
+    price="~RM 1,618"
+    highlight="Equipped with the Light Fusion 800 sensor and Leica Summilux lens for superior low-light performance."
+    affiliateUrl="https://s.shopee.com.my/LiseKIrOj?share_channel_code=1"
+    tags={["camera"]}
+  />
+
+  <PhoneCard
+    rank={7}
+    name="POCO F6"
+    tagline='The "Enthusiast Daily Driver" — Snapdragon 8s Gen 3, clean software'
+    chipset="Snapdragon 8s Gen 3"
+    ram="12GB"
+    storage="256GB / 512GB"
+    camera="50MP OIS Sony LYT-600 + 8MP Ultra-wide"
+    battery="5000mAh · 90W Turbo charging"
+    price="~RM 1,342"
+    highlight="Snapdragon 8s Gen 3 at this price is a steal — flagship CPU tier."
+    affiliateUrl="https://s.shopee.com.my/9pZxxwVr6u?share_channel_code=1"
+    tags={["gaming", "daily"]}
+  />
+
+  <PhoneCard
+    rank={8}
+    name="realme C85 5G"
+    tagline='The "Entry-Level All-Rounder" — smooth 120Hz and 5G at a bargain'
+    chipset="MediaTek Dimensity 6300 (6nm)"
+    ram="8GB"
+    storage="256GB"
+    camera="50MP AI Main + 2MP Depth"
+    battery="5000mAh · 45W SUPERVOOC"
+    price="~RM 699"
+    highlight="Incredible value for 2025, offering 5G connectivity and 45W fast charging under RM 700."
+    affiliateUrl="https://s.shopee.com.my/6fcwCKuObu?share_channel_code=1"
+    tags={["budget", "daily"]}
+  />
+
+  <PhoneCard
+    rank={9}
+    name="Infinix Zero 40 5G"
+    tagline='The "Video Creator" — 108MP + 4K video + LTPO display at mid-range'
+    chipset="MediaTek Dimensity 7025 Ultra"
+    ram="12GB"
+    storage="256GB"
+    camera="108MP OIS + 13MP Ultra-wide + 2MP depth"
+    battery="5000mAh · 45W charging"
+    price="~RM 1,099"
+    highlight="4K 30fps video recording and OIS stabilization — solid for content creators."
+    affiliateUrl=" https://s.shopee.com.my/10yZS2ZLVP?share_channel_code=1"
+    tags={["camera", "daily"]}
+  />
+
+  <PhoneCard
+    rank={10}
+    name="Redmi 15C"
+    tagline='The "Absolute Entry King" — the most affordable way to stay connected'
+    chipset="MediaTek Helio G91 Ultra"
+    ram="6GB / 8GB"
+    storage="128GB / 256GB"
+    camera="50MP AI Main + 2MP Depth"
+    battery="5000mAh · 33W Fast Charging"
+    price="~RM 499 – RM 649"
+    highlight="The most reliable 'cheap' phone of 2025. Finally brings 33W fast charging to the sub-RM500 segment."
+    affiliateUrl="https://s.shopee.com.my/8ARjzHJVay?share_channel_code=1"
+    tags={["budget", "daily"]}
+  />
+</div>
+
+<script>
+  const filterBar = document.getElementById("phone-filter-bar");
+  const list = document.getElementById("phone-list");
+
+  filterBar?.addEventListener("click", (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>(".fil");
+    if (!btn) return;
+
+    filterBar.querySelectorAll(".fil").forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const filter = btn.dataset.filter ?? "all";
+
+    list?.querySelectorAll<HTMLElement>(".phone-card").forEach((card) => {
+      const tags = card.dataset.tags ?? "";
+      const visible = filter === "all" || tags.includes(filter);
+      card.classList.toggle("is-hidden", !visible);
+    });
+  });
+</script>
+
+<style>
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0.75rem 0 1.25rem;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.25rem;
+  }
+
+  .fil {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 14px;
+    border-radius: 99px;
+    border: 0.5px solid rgba(0, 0, 0, 0.15);
+    background: transparent;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-family: inherit;
+  }
+
+  .fil:hover {
+    background: rgba(0, 0, 0, 0.04);
+    color: #111;
+    border-color: rgba(0, 0, 0, 0.25);
+  }
+
+  .fil.active {
+    background: #111;
+    color: #fff;
+    border-color: transparent;
+  }
+
+  .phone-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .phone-list :global(.phone-card.is-hidden) {
+    display: none;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .filter-bar {
+      border-bottom-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .fil {
+      border-color: rgba(255, 255, 255, 0.15);
+      color: #999;
+    }
+
+    .fil:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: #eee;
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .fil.active {
+      background: #f0f0ee;
+      color: #111;
+      border-color: transparent;
+    }
+  }
+</style>

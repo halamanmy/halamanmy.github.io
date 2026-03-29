@@ -1,7 +1,7 @@
 ---
-title: "Best Budget Laptops for Coding in Malaysia (2026)"
+title: "Best Budget Laptops for Coding in Malaysia (2025)"
 description: "A comprehensive guide to the best affordable laptops for software developers and students without breaking the bank."
-pubDate: "Mar 20 2026"
+pubDate: "Mar 20 2025"
 heroImage: "../../assets/laptop.jpg"
 ---
 
@@ -9,7 +9,7 @@ heroImage: "../../assets/laptop.jpg"
 
 As a developer, your laptop is your primary tool. But here is the truth: **You don't need a RM10,000 MacBook to write good code.**
 
-In 2026, the gap between a RM3,500 laptop and a premium machine has narrowed significantly. Most of that "luxury" price goes toward 8K video editing power or "brand tax." For coding, you just need a machine that removes **friction**—no laggy editors, no slow Docker starts, and no overheating during a long compile. Just keep in mind, price may be vary with time.
+In 2025, the gap between a RM3,500 laptop and a premium machine has narrowed significantly. Most of that "luxury" price goes toward 8K video editing power or "brand tax." For coding, you just need a machine that removes **friction**—no laggy editors, no slow Docker starts, and no overheating during a long compile. Just keep in mind, price may be vary with time.
 
 ### ⚡ Quick Comparison (The "Goldilocks" Zone)
 
@@ -22,7 +22,7 @@ In 2026, the gap between a RM3,500 laptop and a premium machine has narrowed sig
 
 ---
 
-## The Top 10 Budget Picks for 2026
+## The Top 10 Budget Picks for 2025
 
 ### 1. Lenovo ThinkPad E14 — _The "Reliable Workhorse"_
 
@@ -82,7 +82,7 @@ A great "premium feel" without the premium price. The 5MP camera is actually dec
 > **Best For:** iOS developers and those who hate carrying chargers.
 
 - **Processor:** Apple M2 Chip
-- **Note:** In 2026, only grab the 8GB version if you are on a strict budget; try to hunt for 16GB promos for Docker usage.
+- **Note:** In 2025, only grab the 8GB version if you are on a strict budget; try to hunt for 16GB promos for Docker usage.
 - **Price:** ~RM3,999 (Sale Price)
 
 👉 <a href="https://s.shopee.com.my/60NAbcUInA?share_channel_code=1" target="_blank" rel="noopener noreferrer"> <strong>Check it on Shopee</strong></a>
@@ -161,7 +161,7 @@ When shopping in the local market, the **RM2,800 to RM4,000** range is the "Gold
 - **RM3,300 – RM4,000:** Best for Mobile Dev (Ionic, Flutter) or Backend (Java/Spring) because you get better "H-Series" processors.
 
 > 💡 **Developer Pro-Tip: Why 16GB is the "New 8GB"**
-> In 2026, don't even look at 8GB laptops. Between Chrome tabs, Slack, VS Code, and a local database server, 8GB will force your computer to use "Swap Memory," which slows you down. **Always prioritize RAM over a fancy screen.**
+> In 2025, don't even look at 8GB laptops. Between Chrome tabs, Slack, VS Code, and a local database server, 8GB will force your computer to use "Swap Memory," which slows you down. **Always prioritize RAM over a fancy screen.**
 
 ---
 
@@ -176,7 +176,7 @@ When shopping in the local market, the **RM2,800 to RM4,000** range is the "Gold
 
 **References**
 
-- [TechNave Malaysia - Laptop Price Guide March 2026](https://technave.com/gadgets/Laptop-Price-Malaysia-119.html)
-- [PCMag - Best Laptops for Programmers 2026 Edition](https://www.pcmag.com/picks/the-best-laptops-for-programmers)
+- [TechNave Malaysia - Laptop Price Guide March 2025](https://technave.com/gadgets/Laptop-Price-Malaysia-119.html)
+- [PCMag - Best Laptops for Programmers 2025 Edition](https://www.pcmag.com/picks/the-best-laptops-for-programmers)
 - _Lowyat.NET - Recommended Laptops for Students & Devs_
 - _Shopee Malaysia Official Brand Stores (Lenovo, Acer, ASUS)_

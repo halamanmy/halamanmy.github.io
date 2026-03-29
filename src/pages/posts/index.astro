@@ -5,16 +5,14 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const title = "Posts";
 const description = "Latest articles.";
-const permalink = `${Astro.site.href}posts`;
+const site = Astro.site?.href;
+const permalink = `${site}posts`;
 
 let allPosts = await getCollection("posts");
 allPosts = allPosts.sort(
   (a, b) =>
-    new Date(b.data.publishDate).valueOf() -
-    new Date(a.data.publishDate).valueOf(),
+    new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf(),
 );
-
-const [featuredPost, ...otherPosts] = allPosts;
 ---
 
 <BaseLayout
@@ -27,7 +25,7 @@ const [featuredPost, ...otherPosts] = allPosts;
     <h1>Posts</h1>
     {
       allPosts.map((post, index) => {
-        const href = `/posts/${featuredPost.id}/`;
+        const href = `/posts/${post.id}/`;
         return (
           <div>
             {index !== 0 && <hr />}
@@ -37,7 +35,14 @@ const [featuredPost, ...otherPosts] = allPosts;
               </h2>
               <p>{post.data.description}</p>
               <div class="post-item-footer">
-                <span class="post-item-date">— {post.data.publishDate}</span>
+                <span class="post-item-date">
+                  —{" "}
+                  {new Date(post.data.pubDate).toLocaleDateString("en-MY", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </span>
               </div>
             </div>
           </div>
