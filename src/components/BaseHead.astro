@@ -10,7 +10,7 @@ export interface Props {
 }
 
 const { title, description, permalink } = Astro.props
-const socialUrl = Astro.site.href + 'assets/social.png'
+const socialUrl = Astro.site?.href + 'assets/social.png'
 ---
 
 <!-- Global Metadata -->
@@ -36,6 +36,9 @@ const socialUrl = Astro.site.href + 'assets/social.png'
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={socialUrl} />
+
+<!-- Google Search Console Verification -->
+<meta name="google-site-verification" content="f4CD5auDird3Ls-iz-L1yEYPpSGkazcLrYEHAGmqJlU" />
 
 <ClientRouter />
 
