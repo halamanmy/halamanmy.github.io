@@ -1,11 +1,11 @@
 ---
-import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const title = "Posts";
 const description = "Latest articles.";
-const site = Astro.site?.href;
+// Using optional chaining and a fallback for local development
+const site = Astro.site?.href || "http://localhost:4321/";
 const permalink = `${site}posts`;
 
 let allPosts = await getCollection("posts");
@@ -21,52 +21,179 @@ allPosts = allPosts.sort(
   permalink={permalink}
   current="posts"
 >
-  <div class="container">
-    <h1>Posts</h1>
-    {
-      allPosts.map((post, index) => {
-        const href = `/posts/${post.id}/`;
-        return (
-          <div>
-            {index !== 0 && <hr />}
-            <div class="post-item">
-              <h2>
-                <a href={href}>{post.data.title}</a>
-              </h2>
-              <p>{post.data.description}</p>
-              <div class="post-item-footer">
-                <span class="post-item-date">
-                  —{" "}
-                  {new Date(post.data.pubDate).toLocaleDateString("en-MY", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </span>
-              </div>
-            </div>
-          </div>
-        );
-      })
-    }
+  <div class="posts-container">
+    <header class="posts-header">
+      <h1 style="color: #535353;" class="page-title">Posts</h1>
+      <p style="color: #797979;" class="page-description">Explore our latest articles and updates.</p>
+    </header>
+
+    <div class="posts-grid">
+      {
+        allPosts.map((post) => {
+          const href = `/posts/${post.id}/`;
+          return (
+            <a href={href} class="post-card">
+              <article>
+                <header class="post-card-header">
+                  <h2 class="post-card-title">{post.data.title}</h2>
+                </header>
+                <p class="post-card-description">{post.data.description}</p>
+                <footer class="post-card-footer">
+                  <time
+                    class="post-card-date"
+                    datetime={new Date(post.data.pubDate).toISOString()}
+                  >
+                    {new Date(post.data.pubDate).toLocaleDateString("en-MY", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </time>
+                  <span class="read-more">Read article &rarr;</span>
+                </footer>
+              </article>
+            </a>
+          );
+        })
+      }
+    </div>
   </div>
 </BaseLayout>
 
 <style>
-  h2,
-  .post-item-footer {
-    font-family: var(--font-family-sans);
+  /* Container & Header */
+  .posts-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .posts-header {
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+
+  .page-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+  }
+
+  .page-description {
+    font-size: 1.125rem;
+  }
+
+  /* Grid Layout */
+  .posts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .posts-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  /* Card Design */
+  .post-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    border-radius: 12px;
+    background-color: var(--bg-secondary, #fafafa);
+    border: 1px solid var(--border-color, #eaeaea);
+    text-decoration: none;
+    color: inherit;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      border-color 0.2s ease;
+    height: 100%; /* Ensures cards stretch to equal heights */
+  }
+
+  .post-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+    border-color: var(--border-hover, #ccc);
+  }
+
+  /* Card Typography */
+  .post-card-title {
+    font-family: var(--font-family-sans, system-ui, sans-serif);
+    font-size: 1.25rem;
     font-weight: 700;
+    line-height: 1.4;
+    margin: 0 0 0.75rem 0;
+    color: var(--text-primary, #111);
   }
 
-  .post-item-date {
-    color: var(--text-secondary);
-    text-align: left;
+  .post-card-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-secondary, #666);
+    margin: 0 0 1.5rem 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex-grow: 1; /* Pushes the footer to the bottom */
+  }
+
+  /* Card Footer */
+  .post-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    font-size: 0.875rem;
+    font-family: var(--font-family-sans, system-ui, sans-serif);
+    font-weight: 600;
+  }
+
+  .post-card-date {
+    color: var(--text-tertiary, #888);
     text-transform: uppercase;
-    margin-right: 16px;
+    letter-spacing: 0.05em;
+    font-size: 0.75rem;
   }
 
-  hr {
-    margin: 60px auto;
+  .read-more {
+    color: var(--accent-color, #0056b3);
+    opacity: 0;
+    transform: translateX(-10px);
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .post-card:hover .read-more {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Dark Mode Adjustments (Optional) */
+  @media (prefers-color-scheme: dark) {
+    .post-card {
+      background-color: var(--bg-secondary, #1a1a1a);
+      border-color: var(--border-color, #333);
+    }
+    .post-card:hover {
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+      border-color: var(--border-hover, #555);
+    }
+    .page-title,
+    .post-card-title {
+      color: #f9f9f9;
+    }
+    .page-description,
+    .post-card-description {
+      color: #aaa;
+    }
+    .read-more {
+      color: var(--accent-color, #66b3ff);
+    }
   }
 </style>
