@@ -9,9 +9,10 @@ interface Props {
   camera: string;
   battery: string;
   price: string;
+  priceValue?: string; // clean numeric string for schema e.g. "1399"
   highlight?: string;
   affiliateUrl: string;
-  tags: string[]; // "gaming" | "daily" | "camera" | "budget"
+  tags: string[]; // "gaming" | "daily" | "camera" | "budget" | "premium"
   featured?: boolean;
 }
 
@@ -25,6 +26,7 @@ const {
   camera,
   battery,
   price,
+  priceValue,
   highlight,
   affiliateUrl,
   tags,
@@ -36,22 +38,56 @@ const tagLabels: Record<string, string> = {
   daily: "daily use",
   camera: "camera / video",
   budget: "budget pick",
+  premium: "premium",
+};
+
+// JSON-LD Product schema — helps Google show rich results (price, name, description)
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": name,
+  "description": tagline,
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "MYR",
+    ...(priceValue
+      ? { "price": priceValue }
+      : { "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "MYR", "name": price } }),
+    "availability": "https://schema.org/InStock",
+    "url": affiliateUrl,
+    "seller": {
+      "@type": "Organization",
+      "name": "Shopee Malaysia",
+    },
+  },
+  "additionalProperty": [
+    { "@type": "PropertyValue", "name": "Chipset", "value": chipset },
+    { "@type": "PropertyValue", "name": "RAM", "value": ram },
+    { "@type": "PropertyValue", "name": "Storage", "value": storage },
+    { "@type": "PropertyValue", "name": "Camera", "value": camera },
+    { "@type": "PropertyValue", "name": "Battery", "value": battery },
+  ],
 };
 ---
+
+{/* JSON-LD injected per card — Google reads all Product schemas on the page */}
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
 
 <article
   class:list={["phone-card", { "phone-card--featured": featured }]}
   data-tags={tags.join(" ")}
+  itemscope
+  itemtype="https://schema.org/Product"
 >
-  <div class="phone-card__rank">
+  <div class="phone-card__rank" aria-label={`Rank ${rank}`}>
     {String(rank).padStart(2, "0")}
   </div>
 
   <div class="phone-card__body">
     <div class="phone-card__header">
       <div>
-        <h3 class="phone-card__name">{name}</h3>
-        <p class="phone-card__tagline">{tagline}</p>
+        <h3 class="phone-card__name" itemprop="name">{name}</h3>
+        <p class="phone-card__tagline" itemprop="description">{tagline}</p>
       </div>
       {featured && <span class="phone-card__badge">Editor's pick</span>}
     </div>
@@ -87,7 +123,7 @@ const tagLabels: Record<string, string> = {
       }
     </dl>
 
-    <div class="phone-card__tags">
+    <div class="phone-card__tags" aria-label="Categories">
       {
         tags.map((t) => (
           <span class={`phone-card__tag phone-card__tag--${t}`}>
@@ -98,13 +134,25 @@ const tagLabels: Record<string, string> = {
     </div>
   </div>
 
-  <div class="phone-card__cta">
-    <p class="phone-card__price">{price}</p>
+  <div
+    class="phone-card__cta"
+    itemprop="offers"
+    itemscope
+    itemtype="https://schema.org/Offer"
+  >
+    <meta itemprop="priceCurrency" content="MYR" />
+    {priceValue && <meta itemprop="price" content={priceValue} />}
+    <meta itemprop="availability" content="https://schema.org/InStock" />
+
+    <p class="phone-card__price" aria-label={`Price: ${price}`}>
+      {price}
+    </p>
     <a
       href={affiliateUrl}
       target="_blank"
-      rel="noopener noreferrer nofollow"
+      rel="noopener noreferrer nofollow sponsored"
       class="phone-card__buy"
+      itemprop="url"
       aria-label={`Buy ${name} on Shopee`}
     >
       View on Shopee
@@ -265,6 +313,10 @@ const tagLabels: Record<string, string> = {
     background: #f1efe8;
     color: #444441;
   }
+  .phone-card__tag--premium {
+    background: #faece7;
+    color: #4a1b0c;
+  }
 
   /* ── CTA ─── */
   .phone-card__cta {
@@ -396,6 +448,10 @@ const tagLabels: Record<string, string> = {
     .phone-card__tag--budget {
       background: #2c2c2a;
       color: #b4b2a9;
+    }
+    .phone-card__tag--premium {
+      background: #4a1b0c;
+      color: #f5c4b3;
     }
   }
 </style>
