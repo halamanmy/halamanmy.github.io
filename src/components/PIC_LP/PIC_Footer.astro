@@ -1,0 +1,92 @@
+---
+const today = new Date();
+const currentYear = today.getFullYear();
+---
+
+<footer>
+  <span>
+    <a
+      href="https://www.ruangan.my/"
+      target="_blank"
+      rel="noopener"
+      class="footer-badge"
+    >
+      <div class="icon-container">
+        <span class="initial-icon">●</span>
+        <span class="hover-icon">🍦</span>
+      </div>
+      <span class="footer-text"> &copy; {currentYear} Ruangan.My</span>
+    </a>
+  </span>
+</footer>
+
+<style>
+  footer {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
+    width: 100%;
+  }
+
+  .footer-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 6px;
+    background-color: var(--bg-secondary, #f4f4f5); /* Subtle gray background */
+    border: 1px solid var(--border-color, #e4e4e7);
+    border-radius: 99px; /* Pill shape */
+    text-decoration: none;
+    color: var(--text-secondary, #71717a);
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Icon Swap Logic */
+  .icon-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+  }
+
+  .initial-icon,
+  .hover-icon {
+    position: absolute;
+    transition: all 0.3s ease;
+  }
+
+  .hover-icon {
+    opacity: 0;
+    transform: translateY(10px) scale(0.5);
+  }
+
+  /* Hover States */
+  .footer-badge:hover {
+    background-color: #fff;
+    border-color: #1dc917; /* Brand color on hover */
+    color: #111;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  .footer-badge:hover .initial-icon {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.5);
+  }
+
+  .footer-badge:hover .hover-icon {
+    opacity: 1;
+    transform: translateY(0) scale(1.2);
+  }
+
+  .footer-text {
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>

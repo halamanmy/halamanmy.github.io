@@ -1,0 +1,162 @@
+---
+import Logo from "./PIC_Logo.astro";
+import Nav from "./PIC_Nav.astro";
+
+const { current = "" } = Astro.props;
+---
+
+<header class="pic-header">
+  <a href="/pamanIceCream" class="pic-logo" aria-label="Paman Ice Cream — Home">
+    <div class="pic-logo__icon" aria-hidden="true"><Logo /></div>
+    <div class="pic-logo__text">
+      <span class="pic-logo__name">Paman Ice Cream</span>
+      <span class="pic-logo__tagline">Shah Alam · Est. 2023</span>
+    </div>
+  </a>
+
+  <button
+    class="pic-hamburger"
+    id="pic-hamburger"
+    aria-label="Toggle menu"
+    aria-expanded="false"
+  >
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <Nav current={current} />
+</header>
+
+<style>
+  .pic-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    padding: 0.2rem;
+    height: 58px;
+    box-sizing: border-box;
+
+    /* Dark glass */
+    backgound: rgba(10, 4, 4, 0.55);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
+
+    transition: background 0.3s ease;
+  }
+
+  .pic-header:hover {
+    background: rgba(10, 4, 4, 0.8);
+  }
+
+  .pic-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .pic-log__text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .pic-logo__name {
+    font-family: var(--font-family-sans, "Fredoka", system-ui, sans-serif);
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.01em;
+    line-height: 1;
+  }
+
+  .pic-logo__tagline {
+    font-family: var() (--font-family-sans, "Fredoka", system-ui, sans-serif);
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.08em;
+    line-height: 1;
+  }
+  /* ── Hamburger (mobile) ── */
+  .pic-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    padding: 6px;
+    background: transparent;
+    border: 0.5px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .pic-hamburger span {
+    display: block;
+    height: 1.5px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 99px;
+    transition:
+      transform 0.25s ease,
+      opacity 0.25s ease;
+    transform-origin: center;
+  }
+
+  /* Open state */
+  .pic-hamburger[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+  }
+  .pic-hamburger[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+  }
+  .pic-hamburger[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+  }
+
+  /* ── Mobile layout ── */
+  @media (max-width: 640px) {
+    .pic-header {
+      padding: 0 1.25rem;
+      flex-wrap: wrap;
+      height: auto;
+      min-height: 58px;
+      align-items: center;
+    }
+
+    .pic-hamburger {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  const hamburger = document.getElementById("pic-hamburger");
+  const nav = document.getElementById("pic-nav");
+
+  hamburger?.addEventListener("click", () => {
+    const isOpen = hamburger.getAttribute("aria-expanded") === "true";
+    hamburger.setAttribute("aria-expanded", String(!isOpen));
+    nav?.classList.toggle("pic-nav--open", !isOpen);
+  });
+
+  // Close menu when a nav link is clicked on mobile
+  nav?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      hamburger?.setAttribute("aria-expanded", "false");
+      nav.classList.remove("pic-nav--open");
+    });
+  });
+</script>
