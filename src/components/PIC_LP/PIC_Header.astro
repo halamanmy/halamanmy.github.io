@@ -1,31 +1,32 @@
 ---
 import Logo from "./PIC_Logo.astro";
 import Nav from "./PIC_Nav.astro";
-
-const { current = "" } = Astro.props;
 ---
 
-<header class="pic-header">
-  <a href="/pamanIceCream" class="pic-logo" aria-label="Paman Ice Cream — Home">
-    <div class="pic-logo__icon" aria-hidden="true"><Logo /></div>
-    <div class="pic-logo__text">
-      <span class="pic-logo__name">Paman Ice Cream</span>
-      <span class="pic-logo__tagline">Shah Alam · Est. 2023</span>
-    </div>
-  </a>
+<header class="pic-header" id="pic-header">
+  <div class="pic-header__inner">
+    <a href="/pamanIceCream" class="pic-logo" aria-label="Paman Ice Cream — Laman Utama">
+      <Logo />
+      <span class="pic-logo__text">
+        <span class="pic-logo__name">Paman Ice Cream</span>
+        <span class="pic-logo__tagline">Shah Alam · Sejak 2024</span>
+      </span>
+    </a>
 
-  <button
-    class="pic-hamburger"
-    id="pic-hamburger"
-    aria-label="Toggle menu"
-    aria-expanded="false"
-  >
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
+    <button
+      class="pic-hamburger"
+      id="pic-hamburger"
+      aria-label="Buka menu"
+      aria-controls="pic-nav"
+      aria-expanded="false"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
 
-  <Nav current={current} />
+    <Nav />
+  </div>
 </header>
 
 <style>
@@ -34,27 +35,31 @@ const { current = "" } = Astro.props;
     top: 0;
     z-index: 1000;
     width: 100%;
+    background: rgba(255, 250, 240, 0.72);
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    border-bottom: 1px solid transparent;
+    transition:
+      background 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
+  }
 
+  .pic-header.is-scrolled {
+    background: rgba(255, 250, 240, 0.92);
+    border-bottom-color: var(--pic-line);
+    box-shadow: 0 8px 24px -16px rgba(20, 48, 27, 0.4);
+  }
+
+  .pic-header__inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    min-height: 68px;
+    padding: 0 1.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-
-    padding: 0.2rem;
-    height: 58px;
-    box-sizing: border-box;
-
-    /* Dark glass */
-    backgound: rgba(10, 4, 4, 0.55);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
-
-    transition: background 0.3s ease;
-  }
-
-  .pic-header:hover {
-    background: rgba(10, 4, 4, 0.8);
   }
 
   .pic-logo {
@@ -65,77 +70,68 @@ const { current = "" } = Astro.props;
     flex-shrink: 0;
   }
 
-  .pic-log__text {
+  .pic-logo__text {
     display: flex;
     flex-direction: column;
-    gap: 1px;
+    gap: 3px;
   }
 
   .pic-logo__name {
-    font-family: var(--font-family-sans, "Fredoka", system-ui, sans-serif);
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
-    color: #fff;
-    letter-spacing: 0.01em;
+    color: var(--pic-ink);
     line-height: 1;
   }
 
   .pic-logo__tagline {
-    font-family: var() (--font-family-sans, "Fredoka", system-ui, sans-serif);
-    font-size: 10px;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.4);
-    letter-spacing: 0.08em;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--pic-ink-faint);
+    letter-spacing: 0.06em;
     line-height: 1;
   }
+
   /* ── Hamburger (mobile) ── */
   .pic-hamburger {
     display: none;
     flex-direction: column;
     justify-content: center;
     gap: 5px;
-    width: 36px;
-    height: 36px;
-    padding: 6px;
-    background: transparent;
-    border: 0.5px solid rgba(255, 255, 255, 0.15);
-    border-radius: 8px;
+    width: 42px;
+    height: 42px;
+    padding: 10px;
+    background: var(--pic-surface);
+    border: 1px solid var(--pic-line);
+    border-radius: 12px;
     cursor: pointer;
     flex-shrink: 0;
   }
 
   .pic-hamburger span {
     display: block;
-    height: 1.5px;
-    background: rgba(255, 255, 255, 0.7);
+    height: 2px;
+    background: var(--pic-ink);
     border-radius: 99px;
     transition:
       transform 0.25s ease,
       opacity 0.25s ease;
-    transform-origin: center;
   }
 
-  /* Open state */
   .pic-hamburger[aria-expanded="true"] span:nth-child(1) {
-    transform: translateY(6.5px) rotate(45deg);
+    transform: translateY(7px) rotate(45deg);
   }
   .pic-hamburger[aria-expanded="true"] span:nth-child(2) {
     opacity: 0;
   }
   .pic-hamburger[aria-expanded="true"] span:nth-child(3) {
-    transform: translateY(-6.5px) rotate(-45deg);
+    transform: translateY(-7px) rotate(-45deg);
   }
 
-  /* ── Mobile layout ── */
-  @media (max-width: 640px) {
-    .pic-header {
-      padding: 0 1.25rem;
+  @media (max-width: 760px) {
+    .pic-header__inner {
       flex-wrap: wrap;
-      height: auto;
-      min-height: 58px;
-      align-items: center;
+      padding: 0 1rem;
     }
-
     .pic-hamburger {
       display: flex;
     }
@@ -143,20 +139,31 @@ const { current = "" } = Astro.props;
 </style>
 
 <script>
-  const hamburger = document.getElementById("pic-hamburger");
-  const nav = document.getElementById("pic-nav");
+  function initHeader() {
+    const header = document.getElementById("pic-header");
+    const hamburger = document.getElementById("pic-hamburger");
+    const nav = document.getElementById("pic-nav");
+    if (!header || !hamburger || !nav) return;
 
-  hamburger?.addEventListener("click", () => {
-    const isOpen = hamburger.getAttribute("aria-expanded") === "true";
-    hamburger.setAttribute("aria-expanded", String(!isOpen));
-    nav?.classList.toggle("pic-nav--open", !isOpen);
-  });
+    const setOpen = (open: boolean) => {
+      hamburger.setAttribute("aria-expanded", String(open));
+      hamburger.setAttribute("aria-label", open ? "Tutup menu" : "Buka menu");
+      nav.classList.toggle("pic-nav--open", open);
+    };
 
-  // Close menu when a nav link is clicked on mobile
-  nav?.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      hamburger?.setAttribute("aria-expanded", "false");
-      nav.classList.remove("pic-nav--open");
+    hamburger.addEventListener("click", () => {
+      setOpen(hamburger.getAttribute("aria-expanded") !== "true");
     });
-  });
+
+    // Close menu when a nav link is clicked on mobile
+    nav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => setOpen(false));
+    });
+
+    const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+
+  document.addEventListener("astro:page-load", initHeader);
 </script>

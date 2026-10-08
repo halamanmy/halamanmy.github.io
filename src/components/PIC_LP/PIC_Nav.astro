@@ -1,34 +1,46 @@
 ---
-const { current = "" } = Astro.props;
-const { pathname } = Astro.url;
-const isHome = pathname === "/pamanIceCream" || pathname === "/pamanIceCream/";
+const links = [
+  { id: "home", label: "Utama" },
+  { id: "about", label: "Tentang" },
+  { id: "menu", label: "Menu" },
+  { id: "services", label: "Perkhidmatan" },
+];
 ---
 
-<nav id="pic-nav" class="pic-nav" aria-label="Main navigation">
-  <a class="pic-nav__link" data-section="home" href="/pamanIceCream">
-    Home
-  </a>
-  <a class="pic-nav__link" data-section="menu" href="/pamanIceCream#menu">
-    Menu
-  </a>
-  <a class="pic-nav__link" data-section="services" href="/pamanIceCream#services">
-    Services
-  </a>
+<nav id="pic-nav" class="pic-nav" aria-label="Navigasi utama">
+  {
+    links.map((l) => (
+      <a class="pic-nav__link" data-section={l.id} href={`/pamanIceCream#${l.id}`}>
+        {l.label}
+      </a>
+    ))
+  }
 
-  <div class="pic-nav__divider" aria-hidden="true"></div>
+  <a
+    class="pic-nav__tiktok"
+    href="https://www.tiktok.com/@aiskrimkelapathailand"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="TikTok @aiskrimkelapathailand"
+    title="TikTok @aiskrimkelapathailand"
+  >
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+    </svg>
+    <span class="pic-nav__tiktok-label">TikTok</span>
+  </a>
 
   <a
     class="pic-nav__whatsapp"
-    href="https://wa.me/+60182876201"
+    href="https://wa.me/60182876201"
     target="_blank"
     rel="noopener noreferrer"
-    aria-label="WhatsApp Kami"
   >
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
       <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.857L.057 23.999l6.305-1.654A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.894a9.875 9.875 0 01-5.032-1.378l-.361-.214-3.741.981.998-3.648-.235-.374A9.858 9.858 0 012.106 12C2.106 6.561 6.561 2.106 12 2.106c5.438 0 9.894 4.455 9.894 9.894 0 5.438-4.456 9.894-9.894 9.894z"/>
     </svg>
-    WhatsApp
+    Tempah
   </a>
 </nav>
 
@@ -36,169 +48,177 @@ const isHome = pathname === "/pamanIceCream" || pathname === "/pamanIceCream/";
   .pic-nav {
     display: flex;
     align-items: center;
-    gap: 2px;
-    font-family: var(--font-family-sans, "Fredoka", system-ui, sans-serif);
+    gap: 4px;
   }
 
-  /* ── Nav links ── */
   .pic-nav__link {
     position: relative;
     display: block;
-    padding: 6px 14px;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
+    padding: 8px 14px;
+    border-radius: 99px;
+    font-size: 15px;
+    font-weight: 500;
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--pic-ink-soft);
     white-space: nowrap;
-    transition: color 0.2s ease, background 0.2s ease;
+    transition:
+      color 0.2s ease,
+      background 0.2s ease;
   }
 
   .pic-nav__link:hover {
-    color: #fff;
-    background: rgba(255, 255, 255, 0.07);
+    color: var(--pic-ink) !important;
+    background: rgba(29, 201, 23, 0.1);
   }
 
-  /* Active underline — use :global so Astro + JS classList both apply it */
-  .pic-nav__link:global(.selected),
-  .pic-nav__link:global(.active) {
-    color: #fff;
+  .pic-nav__link:global(.selected) {
+    color: var(--pic-green-deep);
+    background: var(--pic-green-soft);
+    font-weight: 600;
   }
 
-  .pic-nav__link:global(.selected)::after,
-  .pic-nav__link:global(.active)::after {
-    content: "";
-    position: absolute;
-    bottom: 2px;
-    left: 14px;
-    right: 14px;
-    height: 2px;
-    background: #1dc917;
-    border-radius: 99px;
+  .pic-nav__tiktok {
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    margin-left: 6px;
+    border-radius: 50%;
+    color: var(--pic-ink);
+    background: #fff;
+    border: 1px solid var(--pic-line);
+    text-decoration: none;
+    transition:
+      transform 0.2s ease,
+      background 0.2s ease,
+      color 0.2s ease;
   }
 
-  /* ── Divider ── */
-  .pic-nav__divider {
-    width: 0.5px;
-    height: 18px;
-    background: rgba(255, 255, 255, 0.12);
-    margin: 0 6px;
-    flex-shrink: 0;
+  .pic-nav__tiktok:hover {
+    transform: translateY(-2px) rotate(-6deg);
+    background: var(--pic-ink);
+    color: #fff !important;
   }
 
-  /* ── WhatsApp CTA ── */
+  .pic-nav__tiktok-label {
+    display: none;
+  }
+
   .pic-nav__whatsapp {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 6px 13px;
-    border-radius: 6px;
-    border: 0.5px solid rgba(37, 211, 102, 0.3);
-    background: rgba(37, 211, 102, 0.08);
-    color: #25d366;
-    font-size: 13px;
+    gap: 7px;
+    margin-left: 8px;
+    padding: 9px 18px;
+    border-radius: 99px;
+    background: var(--pic-green-deep);
+    color: #fff;
+    font-size: 15px;
     font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
     text-decoration: none;
     white-space: nowrap;
-    transition: background 0.2s ease, border-color 0.2s ease;
-    flex-shrink: 0;
+    box-shadow: 0 6px 16px -6px rgba(15, 122, 12, 0.6);
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
   }
 
   .pic-nav__whatsapp:hover {
-    background: rgba(37, 211, 102, 0.15);
-    border-color: rgba(37, 211, 102, 0.55);
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px -8px rgba(15, 122, 12, 0.7);
   }
 
   /* ── Mobile drawer ── */
-  @media (max-width: 640px) {
+  @media (max-width: 760px) {
     .pic-nav {
       display: none;
       flex-direction: column;
       align-items: stretch;
       gap: 4px;
       width: 100%;
-      padding: 0.75rem 0 1rem;
-      border-top: 0.5px solid rgba(255, 255, 255, 0.08);
-      order: 3; /* sits below logo + hamburger row */
+      padding: 0.5rem 0 1rem;
+      order: 3;
     }
 
     .pic-nav.pic-nav--open {
       display: flex;
+      animation: dropIn 0.25s ease-out;
     }
 
     .pic-nav__link {
-      padding: 10px 16px;
-      font-size: 15px;
-      border-radius: 8px;
-      color: rgba(255, 255, 255, 0.6);
+      padding: 12px 16px;
+      font-size: 17px;
+      border-radius: 14px;
     }
 
-    .pic-nav__link:global(.selected)::after,
-    .pic-nav__link:global(.active)::after {
-      bottom: 8px;
-      left: 16px;
-      right: auto;
-      width: 24px;
+    .pic-nav__tiktok {
+      display: flex;
+      gap: 8px;
+      width: auto;
+      height: auto;
+      margin: 6px 0 0;
+      padding: 12px 16px;
+      border-radius: 99px;
+      font-size: 17px;
+      font-weight: 600;
     }
 
-    .pic-nav__divider {
-      width: 100%;
-      height: 0.5px;
-      margin: 4px 0;
+    .pic-nav__tiktok-label {
+      display: inline;
     }
 
     .pic-nav__whatsapp {
-      margin: 4px 0 0;
+      margin: 6px 0 0;
       justify-content: center;
-      padding: 10px 16px;
-      font-size: 15px;
+      padding: 13px 16px;
+      font-size: 17px;
+    }
+  }
+
+  @keyframes dropIn {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
     }
   }
 </style>
 
 <script>
+  let observer: IntersectionObserver | undefined;
+
   function initNav() {
+    observer?.disconnect();
     const nav = document.getElementById("pic-nav");
     if (!nav) return;
 
     const links = nav.querySelectorAll<HTMLAnchorElement>("a[data-section]");
-    const sectionIds = ["home", "menu", "services", "contact"];
-    const sections = sectionIds
-      .map((id) => document.getElementById(id))
+    const sections = Array.from(links)
+      .map((l) => document.getElementById(l.dataset.section!))
       .filter(Boolean) as HTMLElement[];
-
     if (sections.length === 0) return;
 
     const setActive = (id: string) => {
       links.forEach((link) => {
-        link.classList.toggle("selected", link.dataset.section === id);
+        const on = link.dataset.section === id;
+        link.classList.toggle("selected", on);
+        if (on) link.setAttribute("aria-current", "true");
+        else link.removeAttribute("aria-current");
       });
     };
 
-    // Set home as default on load
     setActive("home");
 
-    const observer = new IntersectionObserver(
+    observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActive(entry.target.id);
-          }
+          if (entry.isIntersecting) setActive(entry.target.id);
         });
       },
-      {
-        rootMargin: "-10% 0px -55% 0px",
-        threshold: 0,
-      }
+      { rootMargin: "-40% 0px -55% 0px", threshold: 0 },
     );
-
-    sections.forEach((section) => observer.observe(section));
+    sections.forEach((s) => observer!.observe(s));
   }
 
-  initNav();
   document.addEventListener("astro:page-load", initNav);
 </script>

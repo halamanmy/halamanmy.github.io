@@ -1,0 +1,279 @@
+---
+const journey = [
+  {
+    icon: "🎓",
+    when: "Zaman UMK",
+    text: "Jatuh hati pada aiskrim kelapa sewaktu belajar di Kelantan.",
+  },
+  {
+    icon: "🧪",
+    when: "2024",
+    text: "Bermula dengan R&D — resipi, tekstur & topping diuji berkali-kali.",
+  },
+  {
+    icon: "🍦",
+    when: "Hari ini",
+    text: "Paman Ice Cream kini dihidang segar di Shah Alam.",
+  },
+];
+---
+
+<section id="about" class="about">
+  <div class="about__inner">
+    <!-- Photo -->
+    <div class="about__media" data-reveal>
+      <div class="about__photo">
+        <img
+          src="/assets/images/pamanIceCream/stall.webp"
+          alt="Gerai Paman Ice Cream di Shah Alam"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+
+      <div class="about__badge about__badge--year">
+        <strong>2024</strong>
+        <span>Bermula</span>
+      </div>
+
+      <div class="about__badge about__badge--origin">
+        <span aria-hidden="true">🌴</span>
+        Diinspirasikan dari Kelantan
+      </div>
+    </div>
+
+    <!-- Story -->
+    <div class="about__copy" data-reveal>
+      <span class="pic-eyebrow">Kisah Saya</span>
+      <h2 class="pic-heading">
+        Dari kampus Kelantan, <em>terus ke hati anda.</em>
+      </h2>
+
+      <p>
+        Aiskrim kelapa ini asalnya diinspirasikan daripada makanan yang selalu
+        saya nikmati sewaktu belajar di <strong>Universiti Malaysia Kelantan</strong>.
+        Rasanya yang lemak, segar dan lembut buat saya terus jatuh hati — dan
+        sejak dari situ, ia tak pernah lekang dari ingatan.
+      </p>
+
+      <p>
+        Pada tahun <strong>2024</strong>, saya mula mencuba sendiri. Selepas
+        beberapa siri R&amp;D, akhirnya lahirlah <strong>Paman Ice Cream</strong>
+        yang anda semua lihat sekarang — aiskrim kelapa ala Thailand yang
+        dihidang dengan penuh kasih, secawan demi secawan.
+      </p>
+
+      <ol class="about__journey">
+        {
+          journey.map((j) => (
+            <li>
+              <span class="about__journey-icon" aria-hidden="true">{j.icon}</span>
+              <div>
+                <strong>{j.when}</strong>
+                <span>{j.text}</span>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+
+      <p class="about__sign">— Paman</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    background: var(--pic-cream);
+    padding: clamp(4rem, 8vw, 6rem) 1.5rem;
+  }
+
+  .about__inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    align-items: center;
+    gap: clamp(2.5rem, 6vw, 5rem);
+  }
+
+  /* ── Media ─────────────────────────────────────────── */
+  .about__media {
+    position: relative;
+    padding: 0 1.5rem 1.5rem 0;
+  }
+
+  .about__media::before {
+    content: "";
+    position: absolute;
+    inset: 1.5rem 0 0 1.5rem;
+    border-radius: var(--pic-radius);
+    background: var(--pic-green-soft);
+    rotate: 3deg;
+  }
+
+  .about__photo {
+    position: relative;
+    border-radius: var(--pic-radius);
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    box-shadow: var(--pic-shadow);
+  }
+
+  .about__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 48% 60%;
+    display: block;
+    transition: transform 0.8s ease;
+  }
+
+  .about__media:hover .about__photo img {
+    transform: scale(1.04);
+  }
+
+  .about__badge {
+    position: absolute;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: var(--pic-shadow);
+    font-weight: 600;
+    color: var(--pic-ink);
+  }
+
+  .about__badge--year {
+    top: 1.5rem;
+    left: -1rem;
+    padding: 0.8rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+    rotate: -6deg;
+    animation: wobble 6s ease-in-out infinite;
+  }
+
+  .about__badge--year strong {
+    font-size: 1.8rem;
+    color: var(--pic-green-deep);
+  }
+
+  .about__badge--year span {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pic-ink-faint);
+    margin-top: 4px;
+  }
+
+  .about__badge--origin {
+    bottom: 0;
+    right: 0;
+    padding: 0.7rem 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+  }
+
+  /* ── Copy ──────────────────────────────────────────── */
+  .about__copy p {
+    color: var(--pic-ink-soft);
+    font-size: 1.08rem !important;
+    line-height: 1.75;
+    margin-top: 1.1rem !important;
+  }
+
+  .about__copy p strong {
+    color: var(--pic-ink);
+    font-weight: 600;
+  }
+
+  .about__journey {
+    list-style: none;
+    padding: 0 !important;
+    margin-top: 2rem !important;
+    display: grid;
+    gap: 0.9rem;
+    position: relative;
+  }
+
+  /* Vertical connector line */
+  .about__journey::before {
+    content: "";
+    position: absolute;
+    left: 22px;
+    top: 22px;
+    bottom: 22px;
+    width: 2px;
+    background: repeating-linear-gradient(
+      to bottom,
+      var(--pic-green) 0 6px,
+      transparent 6px 12px
+    );
+  }
+
+  .about__journey li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .about__journey-icon {
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    font-size: 1.35rem;
+    background: #fff;
+    border: 2px solid var(--pic-green-soft);
+    border-radius: 50%;
+  }
+
+  .about__journey li div {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.4;
+  }
+
+  .about__journey strong {
+    color: var(--pic-green-deep);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .about__journey li span:not(.about__journey-icon) {
+    color: var(--pic-ink-soft);
+  }
+
+  .about__sign {
+    font-family: var(--font-family-highlight);
+    font-style: italic;
+    font-size: 1.4rem !important;
+    color: var(--pic-coconut) !important;
+    margin-top: 1.5rem !important;
+  }
+
+  @keyframes wobble {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @media (max-width: 860px) {
+    .about__inner {
+      grid-template-columns: 1fr;
+    }
+    .about__media {
+      max-width: 440px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .about__badge--year {
+      left: 0;
+    }
+  }
+</style>

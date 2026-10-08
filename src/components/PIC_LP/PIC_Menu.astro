@@ -1,83 +1,87 @@
 ---
 const sizes = [
   {
-    // icon: "🍦",
-    icon: null,
     label: "Kecil",
-    image: null,
     price: "RM4",
     desc: "Terbaik untuk merasa pertama kali",
+    scale: 0.72,
     popular: false,
   },
   {
-    // icon: "🥤",
-    icon: null,
     label: "Sederhana",
-    image: "/assets/images/pamanIceCream/iceCream.webp",
     price: "RM6",
     desc: "Pilihan terbaik untuk semua orang",
+    scale: 0.86,
     popular: true,
   },
   {
-    // icon: "🍨",
-    icon: null,
     label: "Besar",
-    image: null,
     price: "RM8",
-    desc: "Untuk dikongsikan atau untuk mereka yang menyukai aiskrim",
+    desc: "Buat pelanggan setia kami yang ingin lebih",
+    scale: 1,
     popular: false,
   },
 ];
 
 const toppings = [
-  "Roti",
-  "Sprinkle",
-  "Nata de Coco",
-  "Kacang Hancur",
-  "Koko Krunch",
-  "Susu",
-  "Pulut",
-  "Jagung",
+  { name: "Roti", icon: "🍞" },
+  { name: "Nata de Coco", icon: "🥥" },
+  { name: "Sprinkle", icon: "🌈" },
+  { name: "Kacang Hancur", icon: "🥜" },
+  { name: "Koko Krunch", icon: "🥣" },
+  { name: "Susu", icon: "🥛" },
+  { name: "Pulut", icon: "🍚" },
+  { name: "Jagung", icon: "🌽" },
 ];
 ---
 
 <section id="menu" class="menu-section">
   <div class="menu-inner">
-
     <!-- Section header -->
-    <div class="menu-header">
-      <span class="menu-eyebrow">Apa yang kami tawarkan</span>
-      <h2 class="menu-title">Pilih Saiz Anda</h2>
+    <div class="menu-header" data-reveal>
+      <span class="pic-eyebrow">Apa yang kami tawarkan</span>
+      <h2 class="pic-heading">Pilih <em>saiz</em> anda</h2>
       <p class="menu-subtitle">
         Aiskrim kelapa asli Thailand &mdash; semua saiz, satu rasa
       </p>
     </div>
 
+    <!-- Size comparison photo -->
+    <div class="showcase-banner" data-reveal>
+      <img
+        src="/assets/images/pamanIceCream/cupSize.webp"
+        alt="Perbandingan saiz cawan aiskrim Paman — Besar, Sederhana, Kecil"
+        class="showcase-banner__img"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+
     <!-- Size cards -->
     <div class="size-grid">
       {
-        sizes.map((s) => (
-          <div class:list={["size-card", { "size-card--popular": s.popular }]}>
+        sizes.map((s, i) => (
+          <div
+            class:list={["size-card", { "size-card--popular": s.popular }]}
+            data-reveal
+            style={`animation-delay:${i * 90}ms`}
+          >
             {s.popular && (
-              <span class="size-card__badge" aria-label="Paling popular">
-                Paling Popular
-              </span>
+              <span class="size-card__badge">Paman Pick 🍦</span>
             )}
-            
-            <!-- 👈 UPDATED ICON LOGIC HERE -->
-            <div class="size-card__icon" aria-hidden="true">
-              {s.image ? (
-                <img src={s.image} alt={s.label} class="custom-icon-img" />
-              ) : (
-                s.icon
-              )}
-            </div>
-            
+            <img
+              class="size-card__img"
+              src="/assets/images/pamanIceCream/iceCream.webp"
+              alt=""
+              loading="lazy"
+              decoding="async"
+              style={`--s:${s.scale}`}
+            />
             <span class="size-card__tier">Saiz</span>
             <strong class="size-card__label">{s.label}</strong>
             <p class="size-card__price">
               {s.price}
-              <span>/cup</span>
+              <span>/cawan</span>
             </p>
             <p class="size-card__desc">{s.desc}</p>
           </div>
@@ -85,29 +89,29 @@ const toppings = [
       }
     </div>
 
-    <!-- Toppings divider -->
-    <div class="topping-divider" aria-hidden="true">
-      <span></span>
-      <p>Topping pilihan anda</p>
-      <span></span>
-    </div>
-
     <!-- Toppings -->
-    <p class="topping-label">Tiada tambahan bayaran &middot; Pilih sesuka hati</p>
+    <div class="topping-box" data-reveal>
+      <div class="topping-box__head">
+        <h3>Topping pilihan anda</h3>
+        <span class="topping-box__free">PERCUMA</span>
+      </div>
 
-    <ul class="topping-list" aria-label="Senarai topping percuma">
-      {
-        toppings.map((t) => (
-          <li class="topping-pill">
-            <span class="topping-pill__dot" aria-hidden="true" />
-            {t}
-          </li>
-        ))
-      }
-    </ul>
+      <p class="topping-label">
+        Semua topping percuma dengan setiap pembelian &middot; Tiada tambahan
+        bayaran &middot; Pilih sesuka hati.
+      </p>
 
-    <p class="topping-note">Semua topping percuma dengan setiap pembelian</p>
-
+      <ul class="topping-list" aria-label="Senarai topping percuma">
+        {
+          toppings.map((t) => (
+            <li class="topping-pill">
+              <span aria-hidden="true">{t.icon}</span>
+              {t.name}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   </div>
 </section>
 
@@ -115,62 +119,58 @@ const toppings = [
   /* ── Section shell ───────────────────────────────────── */
   .menu-section {
     width: 100%;
-    padding: 5rem 2rem 6rem;
-    color: #fff;
-    /* sits on top of body::before fixed background */
+    padding: clamp(4rem, 8vw, 6rem) 1.5rem;
+    background:
+      radial-gradient(50% 40% at 0% 0%, rgba(29, 201, 23, 0.1), transparent 70%),
+      var(--pic-cream-2);
   }
 
   .menu-inner {
-    max-width: 860px;
+    max-width: 960px;
     margin: 0 auto;
   }
 
   /* ── Header ──────────────────────────────────────────── */
   .menu-header {
     text-align: center;
-    margin-bottom: 3rem;
-  }
-
-  .menu-eyebrow {
-    display: block;
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.4);
-    margin-bottom: 0.5rem;
-    font-family: var(--font-family-sans, "Fredoka", system-ui, sans-serif);
-  }
-
-  .menu-title {
-    font-family: "Lora", serif;
-    font-size: 2.25rem;
-    font-weight: 700;
-    color: #fff;
-    margin: 0 0 0.5rem;
-    line-height: 1.15;
+    margin-bottom: 2.5rem;
   }
 
   .menu-subtitle {
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.5);
-    margin: 0;
-    font-family: var(--font-family-sans, "Fredoka", system-ui, sans-serif);
+    margin-top: 0.6rem !important;
+    font-size: 1.05rem !important;
+    color: var(--pic-ink-soft);
   }
 
-  .custom-icon-img {
-    width: 80px; /* Matches the visual size of the 3rem emojis */
-    height: 80px;
-    object-fit: contain; /* Ensures the image doesn't stretch */
-    margin-bottom: 4px;
-    /* Optional: Add a slight drop shadow so it blends nicely with the theme */
-    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2)); 
+  /* ── Showcase banner ─────────────────────────────────── */
+  .showcase-banner {
+    width: min(100%, 720px);
+    margin: 0 auto 3.5rem;
+    padding: 10px;
+    background: #fff;
+    border-radius: var(--pic-radius);
+    box-shadow: var(--pic-shadow);
+    rotate: -1deg;
+    transition: rotate 0.4s ease;
   }
 
-  /* ── Size grid ───────────────────────────────────────── */
+  .showcase-banner:hover {
+    rotate: 0deg;
+  }
+
+  .showcase-banner__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: calc(var(--pic-radius) - 8px);
+  }
+
+  /* ── Size cards ──────────────────────────────────────── */
   .size-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
+    gap: 1.25rem;
+    align-items: end;
     margin-bottom: 3.5rem;
   }
 
@@ -179,197 +179,175 @@ const toppings = [
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    padding: 2rem 1.25rem 1.75rem;
-    border-radius: 20px;
-    border: 0.5px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    gap: 6px;
+    padding: 1.5rem 1.25rem 1.6rem;
+    border-radius: var(--pic-radius);
+    background: #fff;
+    border: 1.5px solid var(--pic-line);
     text-align: center;
-    transition: border-color 0.25s ease, background 0.25s ease;
+    transition:
+      transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+      box-shadow 0.3s ease,
+      border-color 0.3s ease;
   }
 
   .size-card:hover {
-    border-color: rgba(255, 255, 255, 0.22);
-    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-6px);
+    box-shadow: var(--pic-shadow);
+    border-color: var(--pic-green-soft);
   }
 
   .size-card--popular {
-    border: 1.5px solid rgba(77, 255, 92, 0.55);
-    background: rgba(77, 255, 107, 0.08);
-  }
-
-  .size-card--popular:hover {
-    border-color: rgba(77, 255, 92, 0.8);
-    background: rgba(77, 255, 107, 0.14);
+    border: 2px solid var(--pic-green);
+    box-shadow: 0 20px 40px -20px rgba(15, 122, 12, 0.45);
+    padding-block: 2rem;
   }
 
   .size-card__badge {
     position: absolute;
-    top: -13px;
+    top: -14px;
     left: 50%;
     transform: translateX(-50%);
-    background: #25d366;
+    background: var(--pic-green-deep);
     color: #fff;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    padding: 3px 14px;
+    padding: 4px 14px;
     border-radius: 99px;
     white-space: nowrap;
-    font-family: var(--font-family-sans, "Fredoka", system-ui, sans-serif);
   }
 
-  .size-card__icon {
-    font-size: 3rem;
-    line-height: 1;
-    margin-bottom: 4px;
+  /* Same cup, scaled per size so the difference reads at a glance */
+  .size-card__img {
+    height: calc(110px * var(--s));
+    width: auto;
+    margin-bottom: 0.5rem;
+    filter: drop-shadow(0 10px 12px rgba(20, 48, 27, 0.18));
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.3, 1.4);
+  }
+
+  .size-card:hover .size-card__img {
+    transform: translateY(-4px) rotate(-4deg);
   }
 
   .size-card__tier {
-    font-size: 0.7rem;
-    letter-spacing: 0.12em;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.4);
-    font-family: var(--font-family-sans, "Fredoka", system-ui, sans-serif);
+    color: var(--pic-ink-faint);
   }
 
   .size-card__label {
-    font-family: "Lora", serif;
-    font-size: 1.25rem;
+    font-family: var(--font-family-highlight);
+    font-size: 1.35rem;
     font-weight: 700;
-    color: #fff;
+    color: var(--pic-ink);
     line-height: 1;
   }
 
   .size-card__price {
-    font-family: var(--font-family-sans, "Fredoka", system-ui, sans-serif);
-    font-size: 2.25rem;
+    font-size: 2.5rem !important;
     font-weight: 700;
-    color: #25d366;
+    color: var(--pic-green-deep);
     line-height: 1;
-    margin: 2px 0 0;
+    margin-top: 4px !important;
   }
 
   .size-card__price span {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.35);
+    color: var(--pic-ink-faint);
   }
 
   .size-card__desc {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.9rem !important;
+    color: var(--pic-ink-soft);
     line-height: 1.45;
-    margin: 0;
-    font-family: var(--font-family-sans, "Fredoka", system-ui, sans-serif);
-  }
-
-  /* ── Toppings divider ────────────────────────────────── */
-  .topping-divider {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 1rem;
-    color: rgba(255, 255, 255, 0.3);
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-family: var(--font-family-sans, "Fredoka", system-ui, sans-serif);
-  }
-
-  .topping-divider span {
-    flex: 1;
-    height: 0.5px;
-    background: rgba(255, 255, 255, 0.1);
-    display: block;
-  }
-
-  .topping-divider p {
-    margin: 0;
-    white-space: nowrap;
   }
 
   /* ── Toppings ────────────────────────────────────────── */
-  .topping-label {
+  .topping-box {
+    background: #fff;
+    border-radius: var(--pic-radius);
+    border: 1.5px dashed rgba(29, 201, 23, 0.4);
+    padding: clamp(1.5rem, 4vw, 2.25rem);
     text-align: center;
+  }
+
+  .topping-box__head {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .topping-box__head h3 {
+    font-family: var(--font-family-highlight) !important;
+    font-size: 1.5rem;
+    color: var(--pic-ink);
+  }
+
+  .topping-box__free {
+    background: var(--pic-yellow);
+    color: var(--pic-ink);
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.35);
-    letter-spacing: 0.05em;
-    margin: 0 0 1.25rem;
-    font-family: var(--font-family-sans, "Fredoka", system-ui, sans-serif);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 3px 10px;
+    border-radius: 99px;
+    rotate: -4deg;
+  }
+
+  .topping-label {
+    font-size: 0.95rem !important;
+    color: var(--pic-ink-soft);
+    margin: 0.5rem 0 1.5rem !important;
   }
 
   .topping-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 10px;
     justify-content: center;
     list-style: none;
-    padding: 0;
-    margin: 0;
   }
 
   .topping-pill {
     display: flex;
     align-items: center;
-    gap: 7px;
-    padding: 7px 16px;
+    gap: 8px;
+    padding: 9px 18px;
     border-radius: 99px;
-    border: 0.5px solid rgba(255, 255, 255, 0.14);
-    background: rgba(255, 255, 255, 0.05);
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 13px;
+    background: var(--pic-cream);
+    border: 1px solid var(--pic-line);
+    color: var(--pic-ink);
+    font-size: 15px;
     font-weight: 500;
-    font-family: var(--font-family-sans, "Fredoka", system-ui, sans-serif);
-    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
-    cursor: default;
+    transition:
+      transform 0.2s ease,
+      background 0.2s ease,
+      border-color 0.2s ease;
   }
 
   .topping-pill:hover {
-    border-color: rgba(77, 255, 92, 0.4);
-    background: rgba(77, 255, 107, 0.08);
-    color: #fff;
-  }
-
-  .topping-pill__dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #25d366;
-    flex-shrink: 0;
-  }
-
-  .topping-note {
-    text-align: center;
-    margin-top: 1.25rem;
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.25);
-    letter-spacing: 0.04em;
-    font-family: var(--font-family-sans, "Fredoka", system-ui, sans-serif);
+    transform: translateY(-3px) rotate(-2deg);
+    background: var(--pic-green-soft);
+    border-color: var(--pic-green);
   }
 
   /* ── Responsive ──────────────────────────────────────── */
-  @media (max-width: 640px) {
-    .menu-section {
-      padding: 4rem 1.25rem 5rem;
-    }
-
-    .menu-title {
-      font-size: 1.75rem;
-    }
-
+  @media (max-width: 680px) {
     .size-grid {
       grid-template-columns: 1fr;
-      max-width: 320px;
-      margin-left: auto;
-      margin-right: auto;
+      max-width: 340px;
+      margin-inline: auto;
     }
 
     .size-card--popular {
-      order: -1; /* Most popular first on mobile */
+      order: -1;
     }
   }
 </style>
